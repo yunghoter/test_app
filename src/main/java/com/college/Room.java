@@ -6,10 +6,14 @@ import javax.persistence.*;
 @Table(name = "rooms")
 public class Room {
     @Id
+    @Column(name = "room_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roomId;
 
+    @Column(name = "room_number")
     private String roomNumber;
+
+    @Column(name = "capacity")
     private int capacity;
 
     // Getters and Setters

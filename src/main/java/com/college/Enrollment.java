@@ -7,6 +7,7 @@ import java.time.LocalDate;
 @Table(name = "enrollments")
 public class Enrollment {
     @Id
+    @Column(name = "enrollment_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int enrollmentId;
 
@@ -18,6 +19,7 @@ public class Enrollment {
     @JoinColumn(name = "course_id")
     private Course course;
 
+    @Column(name = "enrollment_date")
     private LocalDate enrollmentDate;
 
     // Getters and Setters

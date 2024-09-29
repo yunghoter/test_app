@@ -1,20 +1,27 @@
 package com.college;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "courses")
 public class Course {
     @Id
+    @Column(name = "course_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int courseId;
 
+    @Column(name = "course_name")
     private String courseName;
     private int credits;
 
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
+
+    @OneToMany(mappedBy = "course")
+    private List<ClassSchedule> classSchedules;
 
     // Getters and Setters
     public int getCourseId() {
@@ -25,7 +32,7 @@ public class Course {
         this.courseId = courseId;
     }
 
-    public String getCourseName() {
+    public String getName() {
         return courseName;
     }
 
@@ -47,5 +54,13 @@ public class Course {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public List<ClassSchedule> getClassSchedules() {
+        return classSchedules;
+    }
+
+    public void setClassSchedules(List<ClassSchedule> classSchedules) {
+        this.classSchedules = classSchedules;
     }
 }

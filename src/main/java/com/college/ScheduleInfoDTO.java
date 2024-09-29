@@ -1,106 +1,121 @@
 package com.college;
 
-import java.util.stream.Stream;
+import java.time.LocalTime;
 
 public class ScheduleInfoDTO {
-	private String studentFirstName;
-	private String studentLastName;
-	private String teacherFirstName;
-	private String teacherLastName;
-	private String courseName;
-	private String departmentName;
-	private String roomNumber;
-	private String semester;
-	private int year;
-	private String startTime;
-	private String endTime;
+    private String studentFirstName;
+    private String studentLastName;
+    private String teacherFirstName;
+    private String teacherLastName;
+    private String courseName;
+    private String departmentName;
+    private String roomNumber;
+    private String semester;
+    private int year;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
-	// Getters and setters
-	public String getStudentFirstName() {
-		return studentFirstName;
-	}
+    // Constructor
+    public ScheduleInfoDTO(String studentFirstName, String studentLastName, String teacherFirstName, String teacherLastName, String courseName, String departmentName, String roomNumber, String semester, int year, LocalTime startTime, LocalTime endTime) {
+        this.studentFirstName = studentFirstName;
+        this.studentLastName = studentLastName;
+        this.teacherFirstName = teacherFirstName;
+        this.teacherLastName = teacherLastName;
+        this.courseName = courseName;
+        this.departmentName = departmentName;
+        this.roomNumber = roomNumber;
+        this.semester = semester;
+        this.year = year;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 
-	public void setStudentFirstName(String studentFirstName) {
-		this.studentFirstName = studentFirstName;
-	}
+    // Getters and Setters
+    public String getStudentFirstName() {
+        return studentFirstName;
+    }
 
-	public String getStudentLastName() {
-		return studentLastName;
-	}
+    public void setStudentFirstName(String studentFirstName) {
+        this.studentFirstName = studentFirstName;
+    }
 
-	public void setStudentLastName(String studentLastName) {
-		this.studentLastName = studentLastName;
-	}
+    public String getStudentLastName() {
+        return studentLastName;
+    }
 
-	public String getTeacherFirstName() {
-		return teacherFirstName;
-	}
+    public void setStudentLastName(String studentLastName) {
+        this.studentLastName = studentLastName;
+    }
 
-	public void setTeacherFirstName(String teacherFirstName) {
-		this.teacherFirstName = teacherFirstName;
-	}
+    public String getTeacherFirstName() {
+        return teacherFirstName;
+    }
 
-	public String getTeacherLastName() {
-		return teacherLastName;
-	}
+    public void setTeacherFirstName(String teacherFirstName) {
+        this.teacherFirstName = teacherFirstName;
+    }
 
-	public void setTeacherLastName(String teacherLastName) {
-		this.teacherLastName = teacherLastName;
-	}
+    public String getTeacherLastName() {
+        return teacherLastName;
+    }
 
-	public String getCourseName() {
-		return courseName;
-	}
+    public void setTeacherLastName(String teacherLastName) {
+        this.teacherLastName = teacherLastName;
+    }
 
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
+    public String getCourseName() {
+        return courseName;
+    }
 
-	public String getDepartmentName() {
-		return departmentName;
-	}
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
-	}
+    public String getDepartmentName() {
+        return departmentName;
+    }
 
-	public String getRoomNumber() {
-		return roomNumber;
-	}
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
 
-	public void setRoomNumber(String roomNumber) {
-		this.roomNumber = roomNumber;
-	}
+    public String getRoomNumber() {
+        return roomNumber;
+    }
 
-	public String getSemester() {
-		return semester;
-	}
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
 
-	public void setSemester(String semester) {
-		this.semester = semester;
-	}
+    public String getSemester() {
+        return semester;
+    }
 
-	public int getYear() {
-		return year;
-	}
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
 
-	public void setYear(int year) {
-		this.year = year;
-	}
+    public int getYear() {
+        return year;
+    }
 
-	public String getStartTime() {
-		return startTime;
-	}
+    public void setYear(int year) {
+        this.year = year;
+    }
 
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
+    public LocalTime getStartTime() {
+        return startTime;
+    }
 
-	public String getEndTime() {
-		return endTime;
-	}
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
 
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-	}
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
 }

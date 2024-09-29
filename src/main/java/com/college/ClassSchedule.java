@@ -7,6 +7,7 @@ import java.time.LocalTime;
 @Table(name = "class_schedules")
 public class ClassSchedule {
     @Id
+    @Column(name = "schedule_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int scheduleId;
 
@@ -24,7 +25,11 @@ public class ClassSchedule {
 
     private String semester;
     private int year;
+
+    @Column(name = "start_time")
     private LocalTime startTime;
+
+    @Column(name = "end_time")
     private LocalTime endTime;
 
     // Getters and Setters
