@@ -1,39 +1,40 @@
-# Steps to execute
-1. Install PostreSQL, Maven, Java locally.
-1. Create database `college_db`
-1. Set corrct value of `hibernate.connection.password` property in the file "src\main\resources\hibernate.cfg.xml".
-1. Build application using the command: `mvn clean install`.
-1. Run application using the command: `mvn exec:java -Dexec.mainClass="com.college.MainApp"`.
+# Кроки для виконання
+1. Встановіть локально PostgreSQL, Maven та Java.
+1. Створіть базу даних college_db.
+1. Вкажіть правильне значення властивості `hibernate.connection.password` у файлі "src\main\resources\hibernate.cfg.xml".
+1. Зберіть програму за допомогою команди: `mvn clean install`.
+1. Запустіть програму за допомогою команди: `mvn exec:java -D"exec.mainClass=com.college.MainApp"`.
 
-# Application output
+# Результати виконання програми
 ```
-Sep 29, 2024 2:07:27 PM org.hibernate.Version logVersion
+Nov 06, 2024 2:43:34 AM org.hibernate.Version logVersion
 INFO: HHH000412: Hibernate ORM core version 5.6.14.Final
-Sep 29, 2024 2:07:27 PM org.hibernate.boot.jaxb.internal.stax.LocalXmlResourceResolver resolveEntity
+Nov 06, 2024 2:43:35 AM org.hibernate.boot.jaxb.internal.stax.LocalXmlResourceResolver resolveEntity
 WARN: HHH90000012: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/hibernate-configuration. Use namespace http://www.hibernate.org/dtd/hibernate-configuration instead.  Support for obsolete DTD/XSD namespaces may be removed at any time.
-Sep 29, 2024 2:07:28 PM org.hibernate.annotations.common.reflection.java.JavaReflectionManager <clinit>
+Nov 06, 2024 2:43:35 AM org.hibernate.annotations.common.reflection.java.JavaReflectionManager <clinit>
 INFO: HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-Sep 29, 2024 2:07:28 PM org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator instantiateC3p0Provider
+Nov 06, 2024 2:43:36 AM org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator instantiateC3p0Provider
 WARN: HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
-Sep 29, 2024 2:07:28 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+Nov 06, 2024 2:43:36 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 WARN: HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-Sep 29, 2024 2:07:28 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+Nov 06, 2024 2:43:36 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5432/college_db]
-Sep 29, 2024 2:07:28 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+Nov 06, 2024 2:43:36 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001001: Connection properties: {password=****, user=postgres}
-Sep 29, 2024 2:07:28 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+Nov 06, 2024 2:43:36 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001003: Autocommit mode: false
-Sep 29, 2024 2:07:28 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections <init>
+Nov 06, 2024 2:43:36 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections <init>
 INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
-Sep 29, 2024 2:07:28 PM org.hibernate.dialect.Dialect <init>
+Nov 06, 2024 2:43:36 AM org.hibernate.dialect.Dialect <init>
 INFO: HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
-Hibernate:
+Hibernate: 
 
     alter table class_schedules
        drop constraint FKme1t7iugw17i8ye64yafbkpno
-Sep 29, 2024 2:07:29 PM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
-INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@67546a6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-Hibernate:
+Nov 06, 2024 2:43:38 AM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
+INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6e71cdf9] 
+for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+Hibernate: 
 
     alter table class_schedules
        drop constraint FK2rlbqylwb07utwfushcbsv2an
@@ -49,7 +50,7 @@ Hibernate:
 
     alter table enrollments
        drop constraint FKho8mcicp4196ebpltdn9wl6co
-Hibernate:
+Hibernate: 
 
     alter table enrollments
        drop constraint FK8kf1u1857xgo56xbfmnif2c51
@@ -64,25 +65,25 @@ Hibernate:
 Hibernate:
 
     drop table if exists class_schedules cascade
-Hibernate:
+Hibernate: 
 
     drop table if exists courses cascade
 Hibernate:
 
     drop table if exists departments cascade
-Hibernate:
+Hibernate: 
 
     drop table if exists enrollments cascade
-Hibernate:
+Hibernate: 
 
     drop table if exists rooms cascade
 Hibernate:
 
     drop table if exists students cascade
-Hibernate:
+Hibernate: 
 
     drop table if exists teachers cascade
-Hibernate:
+Hibernate: 
 
     create table class_schedules (
        schedule_id  serial not null,
@@ -95,9 +96,9 @@ Hibernate:
         teacher_id int4,
         primary key (schedule_id)
     )
-Sep 29, 2024 2:07:29 PM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
-INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@46612b48] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-Hibernate:
+Nov 06, 2024 2:43:38 AM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
+INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@20374bf] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+Hibernate: 
 
     create table courses (
        course_id  serial not null,
@@ -106,7 +107,7 @@ Hibernate:
         department_id int4,
         primary key (course_id)
     )
-Hibernate:
+Hibernate: 
 
     create table departments (
        department_id  serial not null,
@@ -114,7 +115,7 @@ Hibernate:
         name varchar(255),
         primary key (department_id)
     )
-Hibernate:
+Hibernate: 
 
     create table enrollments (
        enrollment_id  serial not null,
@@ -123,7 +124,7 @@ Hibernate:
         student_id int4,
         primary key (enrollment_id)
     )
-Hibernate:
+Hibernate: 
 
     create table rooms (
        room_id  serial not null,
@@ -131,7 +132,7 @@ Hibernate:
         room_number varchar(255),
         primary key (room_id)
     )
-Hibernate:
+Hibernate: 
 
     create table students (
        student_id  serial not null,
@@ -140,7 +141,7 @@ Hibernate:
         department_id int4,
         primary key (student_id)
     )
-Hibernate:
+Hibernate: 
 
     create table teachers (
        teacher_id  serial not null,
@@ -149,13 +150,13 @@ Hibernate:
         department_id int4,
         primary key (teacher_id)
     )
-Hibernate:
+Hibernate: 
 
     alter table class_schedules
        add constraint FKme1t7iugw17i8ye64yafbkpno
        foreign key (course_id)
        references courses
-Hibernate:
+Hibernate: 
 
     alter table class_schedules
        add constraint FK2rlbqylwb07utwfushcbsv2an
@@ -197,14 +198,14 @@ Hibernate:
        add constraint FKrgr03njnvpwuktc0mntf8t6o0
        foreign key (department_id)
        references departments
-Hibernate:
+Hibernate: 
     insert
     into
         departments
         (location, name)
     values
         (?, ?)
-Hibernate:
+Hibernate: 
     insert
     into
         departments
@@ -218,7 +219,7 @@ Hibernate:
         (department_id, first_name, last_name)
     values
         (?, ?, ?)
-Hibernate:
+Hibernate: 
     insert
     into
         teachers
@@ -232,7 +233,7 @@ Hibernate:
         (department_id, first_name, last_name)
     values
         (?, ?, ?)
-Hibernate:
+Hibernate: 
     insert
     into
         students
@@ -253,7 +254,7 @@ Hibernate:
         (department_id, first_name, last_name)
     values
         (?, ?, ?)
-Hibernate:
+Hibernate: 
     insert
     into
         students
@@ -337,8 +338,8 @@ Hibernate:
         (course_id, enrollment_date, student_id)
     values
         (?, ?, ?)
-Data saved successfully!
-Hibernate:
+Дан? усп?шно збережено!
+Hibernate: 
     select
         student1_.first_name as col_0_0_,
         student1_.last_name as col_1_0_,
@@ -371,56 +372,56 @@ Hibernate:
     inner join
         rooms room6_
             on classsched3_.room_id=room6_.room_id
-Student: Ал?са Мельник
-Teacher: ?ван Петренко
-Course: Вступ до програмування
-Department: Комп`ютерн? науки
-Room: 210
-Semester: Ос?нь
-Year: 2024
-Start Time: 09:00
-End Time: 10:30
+Студент: Ал?са Мельник
+Викладач: ?ван Петренко
+Курс: Вступ до програмування
+Кафедра: Комп`ютерн? науки
+Аудитор?я: 210
+Семестр: Ос?нь
+Р?к: 2024
+Час початку: 09:00
+Час зак?нчення: 10:30
 --------------------------------------------------
-Student: Катерина Левченко
-Teacher: ?ван Петренко
-Course: Вступ до програмування
-Department: Комп`ютерн? науки
-Room: 210
-Semester: Ос?нь
-Year: 2024
-Start Time: 09:00
-End Time: 10:30
+Студент: Катерина Левченко
+Викладач: ?ван Петренко
+Курс: Вступ до програмування
+Кафедра: Комп`ютерн? науки
+Аудитор?я: 210
+Семестр: Ос?нь
+Р?к: 2024
+Час початку: 09:00
+Час зак?нчення: 10:30
 --------------------------------------------------
-Student: Дмитро Шевченко
-Teacher: ?ван Петренко
-Course: Вступ до програмування
-Department: Комп`ютерн? науки
-Room: 210
-Semester: Ос?нь
-Year: 2024
-Start Time: 09:00
-End Time: 10:30
+Студент: Дмитро Шевченко
+Викладач: ?ван Петренко
+Курс: Вступ до програмування
+Кафедра: Комп`ютерн? науки
+Аудитор?я: 210
+Семестр: Ос?нь
+Р?к: 2024
+Час початку: 09:00
+Час зак?нчення: 10:30
 --------------------------------------------------
-Student: Богдан ?ванов
-Teacher: Оксана Коваль
-Course: Математичний анал?з I
-Department: Математика
-Room: 212
-Semester: Ос?нь
-Year: 2024
-Start Time: 11:00
-End Time: 12:30
+Студент: Богдан ?ванов
+Викладач: Оксана Коваль
+Курс: Математичний анал?з I
+Кафедра: Математика
+Аудитор?я: 212
+Семестр: Ос?нь
+Р?к: 2024
+Час початку: 11:00
+Час зак?нчення: 12:30
 --------------------------------------------------
-Student: Олена Петренко
-Teacher: Оксана Коваль
-Course: Математичний анал?з I
-Department: Математика
-Room: 212
-Semester: Ос?нь
-Year: 2024
-Start Time: 11:00
-End Time: 12:30
+Студент: Олена Петренко
+Викладач: Оксана Коваль
+Курс: Математичний анал?з I
+Кафедра: Математика
+Аудитор?я: 212
+Семестр: Ос?нь
+Р?к: 2024
+Час початку: 11:00
+Час зак?нчення: 12:30
 --------------------------------------------------
-Sep 29, 2024 2:07:30 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState stop
+Nov 06, 2024 2:43:39 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState stop
 INFO: HHH10001008: Cleaning up connection pool [jdbc:postgresql://localhost:5432/college_db]
 ```

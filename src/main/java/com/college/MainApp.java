@@ -7,9 +7,44 @@ import org.hibernate.cfg.Configuration;
 import java.time.LocalTime;
 import java.util.List;
 
+/**
+ * Головний клас програми для роботи з базою даних розкладу коледжу.
+ * 
+ * <p>Цей клас використовує ORM фреймворк Hibernate для взаємодії з базою даних. Він виконує дві основні операції:
+ * <ul>
+ *   <li>Перша транзакція: Додавання даних до таблиць Departments, Teachers, Students, Courses, Rooms, ClassSchedules та Enrollments.</li>
+ *   <li>Друга транзакція: Виконання запиту для отримання інформації про розклад занять студентів.</li>
+ * </ul>
+ * </p>
+ * 
+ * <p>Клас використовує наступні Entity класи таблиць бази даних:
+ * <ul>
+ *   <li>{@link Department}</li>
+ *   <li>{@link Teacher}</li>
+ *   <li>{@link Student}</li>
+ *   <li>{@link Course}</li>
+ *   <li>{@link Room}</li>
+ *   <li>{@link ClassSchedule}</li>
+ *   <li>{@link Enrollment}</li>
+ * </ul>
+ * </p>
+ * 
+ * <p>Запит у другій транзакції повертає об'єкти {@link ScheduleInfoDTO}, які містять інформацію про студентів, викладачів, курси, кафедри, аудиторії, семестри, роки та час занять.</p>
+ * 
+ * <p>Для запуску програми необхідно мати налаштований файл конфігурації Hibernate (hibernate.cfg.xml).</p>
+ * 
+ * @see Department
+ * @see Teacher
+ * @see Student
+ * @see Course
+ * @see Room
+ * @see ClassSchedule
+ * @see Enrollment
+ * @see ScheduleInfoDTO
+ */
 public class MainApp {
     public static void main(String[] args) {
-        // Create Hibernate session factory
+        // Створення фабрики сесій Hibernate
         SessionFactory factory = new Configuration()
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Department.class)
@@ -21,12 +56,12 @@ public class MainApp {
                 .addAnnotatedClass(Enrollment.class)
                 .buildSessionFactory();
 
-        // First transaction: Insert data
+        // Перша транзакція: Додавання даних 
         try (Session session = factory.openSession()) {
-            // Begin transaction
+            // Початок транзакції
             session.beginTransaction();
 
-            // Inserting into Departments
+            // Додавання даних в Departments
             Department dept1 = new Department();
             dept1.setName("Комп`ютерні науки");
             dept1.setLocation("Корпус A");
@@ -38,7 +73,7 @@ public class MainApp {
             session.save(dept1);
             session.save(dept2);
 
-            // Inserting into Teachers
+            // Додавання даних в Teachers
             Teacher teacher1 = new Teacher();
             teacher1.setFirstName("Іван");
             teacher1.setLastName("Петренко");
@@ -52,7 +87,7 @@ public class MainApp {
             session.save(teacher1);
             session.save(teacher2);
 
-            // Inserting into Students
+            // Додавання даних в Students
             Student student1 = new Student();
             student1.setFirstName("Аліса");
             student1.setLastName("Мельник");
@@ -84,7 +119,7 @@ public class MainApp {
             session.save(student4);
             session.save(student5);
 
-            // Inserting into Courses
+            // Додавання даних в Courses
             Course course1 = new Course();
             course1.setCourseName("Вступ до програмування");
             course1.setDepartment(dept1); // Комп'ютерні науки
@@ -98,7 +133,7 @@ public class MainApp {
             session.save(course1);
             session.save(course2);
 
-            // Inserting into Rooms
+            // Додавання даних в Rooms
             Room room1 = new Room();
             room1.setRoomNumber("210");
             room1.setCapacity(30);
@@ -110,7 +145,7 @@ public class MainApp {
             session.save(room1);
             session.save(room2);
 
-            // Inserting into Class Schedules
+            // Додавання даних в Class Schedules
             ClassSchedule schedule1 = new ClassSchedule();
             schedule1.setCourse(course1);
             schedule1.setTeacher(teacher1);
@@ -132,51 +167,55 @@ public class MainApp {
             session.save(schedule1);
             session.save(schedule2);
 
-            // Inserting into Enrollments
-            // 3 students enrolled in 'Вступ до програмування'
+            // Додавання даних в Enrollments
+            // 3 студенти записані на 'Вступ до програмування'
             Enrollment enrollment1 = new Enrollment();
             enrollment1.setStudent(student1); // Аліса
             enrollment1.setCourse(course1);   // Вступ до програмування
+            enrollment1.setEnrollmentDate(java.time.LocalDate.now());
 
             Enrollment enrollment2 = new Enrollment();
             enrollment2.setStudent(student3); // Катерина
             enrollment2.setCourse(course1);   // Вступ до програмування
+            enrollment2.setEnrollmentDate(java.time.LocalDate.now());
 
             Enrollment enrollment3 = new Enrollment();
             enrollment3.setStudent(student4); // Дмитро
             enrollment3.setCourse(course1);   // Вступ до програмування
+            enrollment3.setEnrollmentDate(java.time.LocalDate.now());
 
             session.save(enrollment1);
             session.save(enrollment2);
             session.save(enrollment3);
 
-            // 2 students enrolled in 'Математичний аналіз I'
+            // 2 студенти записані на 'Математичний аналіз I'
             Enrollment enrollment4 = new Enrollment();
             enrollment4.setStudent(student2); // Богдан
             enrollment4.setCourse(course2);   // Математичний аналіз I
+            enrollment4.setEnrollmentDate(java.time.LocalDate.now());
 
             Enrollment enrollment5 = new Enrollment();
             enrollment5.setStudent(student5); // Олена
             enrollment5.setCourse(course2);   // Математичний аналіз I
+            enrollment5.setEnrollmentDate(java.time.LocalDate.now());
 
             session.save(enrollment4);
             session.save(enrollment5);
 
-            // Commit the transaction
+            // Підтвердження транзакції
             session.getTransaction().commit();
-            System.out.println("Data saved successfully!");
+            System.out.println("Дані успішно збережено!");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // Second transaction: Execute query
+        // Друга транзакція: Виконання запиту
         try (Session session = factory.openSession()) {
-            // Start a transaction
+            // Початок транзакції
             session.beginTransaction();
 
-            // Execute the query
-            // Execute the query
+            // Виконання запиту
             String hql = "SELECT new com.college.ScheduleInfoDTO(" +
                     "s.firstName, s.lastName, " +
                     "t.firstName, t.lastName, " +
@@ -193,21 +232,21 @@ public class MainApp {
 
             List<ScheduleInfoDTO> results = session.createQuery(hql, ScheduleInfoDTO.class).getResultList();
 
-            // Process the results
+            // Обробка результатів
             for (ScheduleInfoDTO info : results) {
-                System.out.println("Student: " + info.getStudentFirstName() + " " + info.getStudentLastName());
-                System.out.println("Teacher: " + info.getTeacherFirstName() + " " + info.getTeacherLastName());
-                System.out.println("Course: " + info.getCourseName());
-                System.out.println("Department: " + info.getDepartmentName());
-                System.out.println("Room: " + info.getRoomNumber());
-                System.out.println("Semester: " + info.getSemester());
-                System.out.println("Year: " + info.getYear());
-                System.out.println("Start Time: " + info.getStartTime());
-                System.out.println("End Time: " + info.getEndTime());
+                System.out.println("Студент: " + info.getStudentFirstName() + " " + info.getStudentLastName());
+                System.out.println("Викладач: " + info.getTeacherFirstName() + " " + info.getTeacherLastName());
+                System.out.println("Курс: " + info.getCourseName());
+                System.out.println("Кафедра: " + info.getDepartmentName());
+                System.out.println("Аудиторія: " + info.getRoomNumber());
+                System.out.println("Семестр: " + info.getSemester());
+                System.out.println("Рік: " + info.getYear());
+                System.out.println("Час початку: " + info.getStartTime());
+                System.out.println("Час закінчення: " + info.getEndTime());
                 System.out.println("--------------------------------------------------");
             }
 
-            // Commit the transaction
+            // Підтвердження транзакції
             session.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
