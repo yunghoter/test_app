@@ -60,18 +60,18 @@ public class ScheduleController {
 
     @PostMapping("/add")
     public String addSchedule(
-            @RequestParam("course") Integer courseId,
-            @RequestParam("teacher") Integer teacherId,
-            @RequestParam("room") Integer roomId,
+            @RequestParam("course") Long courseId,
+            @RequestParam("teacher") Long teacherId,
+            @RequestParam("room") Long roomId,
             @RequestParam("semester") String semester,
             @RequestParam("year") Integer year,
             @RequestParam("startTime") String startTime,
             @RequestParam("endTime") String endTime) {
         
         ClassSchedule classSchedule = new ClassSchedule();
-        classSchedule.setCourse(courseService.findById(courseId.longValue()).orElse(null));
-        classSchedule.setTeacher(teacherService.findById(teacherId.longValue()).orElse(null));
-        classSchedule.setRoom(roomService.findById(roomId.longValue()).orElse(null));
+        classSchedule.setCourse(courseService.findById(courseId).orElse(null));
+        classSchedule.setTeacher(teacherService.findById(teacherId).orElse(null));
+        classSchedule.setRoom(roomService.findById(roomId).orElse(null));
         classSchedule.setSemester(semester);
         classSchedule.setYear(year);
         
