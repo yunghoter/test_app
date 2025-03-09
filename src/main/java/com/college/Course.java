@@ -32,7 +32,7 @@ public class Course {
         this.courseId = courseId;
     }
 
-    public String getName() {
+    public String getCourseName() {
         return courseName;
     }
 

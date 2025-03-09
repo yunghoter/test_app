@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Enroll in Course</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>Enroll in Course</h2>
+        </div>
+        <form th:action="@{/enrollment/enroll}" th:object="${enrollment}" method="post">
+            <div class="mb-3">
+                <label for="student" class="form-label">Student</label>
+                <select class="form-select" id="student" th:field="*{student}" required>
+                    <option value="">Select Student</option>
+                    <option th:each="student : ${students}"
+                            th:value="${student.id}"
+                            th:text="${student.firstName + ' ' + student.lastName}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="course" class="form-label">Course</label>
+                <select class="form-select" id="course" th:field="*{course}" required>
+                    <option value="">Select Course</option>
+                    <option th:each="course : ${courses}"
+                            th:value="${course.id}"
+                            th:text="${course.courseName}">
+                    </option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enroll</button>
+            <a href="/schedule/list" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
