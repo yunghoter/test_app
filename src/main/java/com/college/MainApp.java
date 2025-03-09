@@ -44,9 +44,20 @@ import java.util.List;
  */
 public class MainApp {
     public static void main(String[] args) {
-        // Створення фабрики сесій Hibernate
-        SessionFactory factory = new Configuration()
-                .configure("hibernate.cfg.xml")
+        // Отримання паролю бази даних зі змінної середовища
+        String dbPassword = System.getenv("DB_PASSWORD");
+        if (dbPassword == null || dbPassword.isEmpty()) {
+            System.err.println("Помилка: Змінна середовища DB_PASSWORD не встановлена");
+            System.exit(1);
+        }
+        
+        // Створення фабрики сесій Hibernate з параметрами з середовища
+        Configuration config = new Configuration().configure("hibernate.cfg.xml");
+        
+        // Встановлення паролю бази даних зі змінної середовища
+        config.getProperties().setProperty("hibernate.connection.password", dbPassword);
+        
+        SessionFactory factory = config
                 .addAnnotatedClass(Department.class)
                 .addAnnotatedClass(Teacher.class)
                 .addAnnotatedClass(Student.class)

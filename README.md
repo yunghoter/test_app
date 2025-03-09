@@ -1,9 +1,61 @@
 # Кроки для виконання
 1. Встановіть локально PostgreSQL, Maven та Java.
-1. Створіть базу даних college_db.
-1. Вкажіть правильне значення властивості `hibernate.connection.password` у файлі "src\main\resources\hibernate.cfg.xml".
-1. Зберіть програму за допомогою команди: `mvn clean install`.
-1. Запустіть програму за допомогою команди: `mvn exec:java -D"exec.mainClass=com.college.MainApp"`.
+2. Створіть базу даних college_db.
+3. Встановіть змінну середовища `DB_PASSWORD` з паролем для бази даних PostgreSQL.
+4. Для Windows налаштуйте консоль на використання UTF-8 кодування: `chcp 65001`
+5. Зберіть програму за допомогою команди: `mvn clean install`.
+6. Запустіть програму за допомогою команди: `mvn exec:java -D"exec.mainClass=com.college.MainApp"`.
+
+## Використання змінних середовища для паролів бази даних
+
+Програма тепер використовує змінні середовища для отримання пароля бази даних, замість зберігання його у файлі конфігурації. Це підвищує безпеку та відповідає передовим практикам розробки програмного забезпечення.
+
+### Локальне середовище
+
+Для локального середовища, встановіть змінну середовища `DB_PASSWORD` перед запуском програми:
+
+**Windows:**
+```
+$env:DB_PASSWORD = your_password
+```
+
+**Linux/macOS:**
+```
+export DB_PASSWORD=your_password
+```
+
+### GitHub CI/CD
+
+Для використання в GitHub Actions workflow, додайте пароль бази даних як секрет репозиторію:
+
+1. Перейдіть до налаштувань вашого репозиторію на GitHub
+2. Виберіть "Secrets and variables" -> "Actions"
+3. Натисніть "New repository secret"
+4. Введіть назву: `DB_PASSWORD`
+5. Введіть значення: ваш пароль бази даних
+6. Натисніть "Add secret"
+
+Тепер ви можете використовувати цей секрет у ваших GitHub Actions workflow:
+
+```yaml
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v3
+      # ...інші кроки...
+```
+
+### Запуск з UTF-8 кодуванням
+
+Для правильного відображення українських символів у консолі Windows використовуйте наступні команди:
+
+```
+chcp 65001
+mvn exec:java -D"exec.mainClass=com.college.MainApp"
+```
 
 # Результати виконання програми
 ```
@@ -424,4 +476,3 @@ Hibernate:
 --------------------------------------------------
 Nov 06, 2024 2:43:39 AM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState stop
 INFO: HHH10001008: Cleaning up connection pool [jdbc:postgresql://localhost:5432/college_db]
-```
