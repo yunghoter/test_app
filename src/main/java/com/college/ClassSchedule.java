@@ -9,7 +9,7 @@ public class ClassSchedule {
     @Id
     @Column(name = "schedule_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int scheduleId;
+    private Long scheduleId;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
@@ -33,11 +33,11 @@ public class ClassSchedule {
     private LocalTime endTime;
 
     // Getters and Setters
-    public int getScheduleId() {
+    public Long getScheduleId() {
         return scheduleId;
     }
 
-    public void setScheduleId(int scheduleId) {
+    public void setScheduleId(Long scheduleId) {
         this.scheduleId = scheduleId;
     }
 

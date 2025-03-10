@@ -9,7 +9,7 @@ public class Enrollment {
     @Id
     @Column(name = "enrollment_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int enrollmentId;
+    private Long enrollmentId;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
@@ -23,11 +23,11 @@ public class Enrollment {
     private LocalDate enrollmentDate;
 
     // Getters and Setters
-    public int getEnrollmentId() {
+    public Long getEnrollmentId() {
         return enrollmentId;
     }
 
-    public void setEnrollmentId(int enrollmentId) {
+    public void setEnrollmentId(Long enrollmentId) {
         this.enrollmentId = enrollmentId;
     }
 
