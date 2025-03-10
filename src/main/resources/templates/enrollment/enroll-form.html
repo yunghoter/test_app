@@ -2,38 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-    <title>Enroll in Course</title>
+    <title>Реєстрація на курс</title>
 </head>
 <body>
     <div layout:fragment="content">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Enroll in Course</h2>
+            <h2>Реєстрація на курс</h2>
         </div>
-        <form th:action="@{/enrollment/enroll}" th:object="${enrollment}" method="post">
+        <form th:action="@{/enrollment/enroll}" method="post">
             <div class="mb-3">
-                <label for="student" class="form-label">Student</label>
-                <select class="form-select" id="student" th:field="*{student}" required>
-                    <option value="">Select Student</option>
+                <label for="student" class="form-label">Студент</label>
+                <select class="form-select" id="student" name="student" required>
+                    <option value="">Оберіть студента</option>
                     <option th:each="student : ${students}"
-                            th:value="${student.id}"
+                            th:value="${student.studentId}"
                             th:text="${student.firstName + ' ' + student.lastName}">
                     </option>
                 </select>
             </div>
 
             <div class="mb-3">
-                <label for="course" class="form-label">Course</label>
-                <select class="form-select" id="course" th:field="*{course}" required>
-                    <option value="">Select Course</option>
+                <label for="course" class="form-label">Курс</label>
+                <select class="form-select" id="course" name="course" required>
+                    <option value="">Оберіть курс</option>
                     <option th:each="course : ${courses}"
-                            th:value="${course.id}"
+                            th:value="${course.courseId}"
                             th:text="${course.courseName}">
                     </option>
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">Enroll</button>
-            <a href="/schedule/list" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">Зареєструватися</button>
+            <a href="/schedule/list" class="btn btn-secondary">Скасувати</a>
         </form>
     </div>
 </body>

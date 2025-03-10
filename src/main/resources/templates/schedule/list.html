@@ -2,33 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-    <title>Schedule List</title>
+    <title>Список занять</title>
 </head>
 <body>
     <div layout:fragment="content">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>Class Schedule</h2>
-            <a href="/schedule/add" class="btn btn-primary">Add New Schedule</a>
+            <h2>Розклад занять</h2>
+            <a href="/schedule/add" class="btn btn-primary">Додати нове заняття</a>
         </div>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Student</th>
-                        <th>Teacher</th>
-                        <th>Course</th>
-                        <th>Department</th>
-                        <th>Room</th>
-                        <th>Semester</th>
-                        <th>Year</th>
-                        <th>Time</th>
+                        <th>Студент</th>
+                        <th>Курс</th>
+                        <th>Ім'я викладача</th>
+                        <th>Прізвище викладача</th>
+                        <th>Кафедра</th>
+                        <th>Аудиторія</th>
+                        <th>Семестр</th>
+                        <th>Рік</th>
+                        <th>Час</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="schedule : ${schedules}">
                         <td th:text="${schedule.studentFirstName + ' ' + schedule.studentLastName}"></td>
-                        <td th:text="${schedule.teacherFirstName + ' ' + schedule.teacherLastName}"></td>
                         <td th:text="${schedule.courseName}"></td>
+                        <td th:text="${schedule.teacherFirstName + ' ' + schedule.teacherLastName}"></td>
                         <td th:text="${schedule.departmentName}"></td>
                         <td th:text="${schedule.roomNumber}"></td>
                         <td th:text="${schedule.semester}"></td>

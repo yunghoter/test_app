@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @Controller
 @RequestMapping("/enrollment")
 public class EnrollmentController {
@@ -34,7 +36,12 @@ public class EnrollmentController {
     }
 
     @PostMapping("/enroll")
-    public String enroll(@ModelAttribute Enrollment enrollment) {
+    public String enroll(@RequestParam("student") Long studentId,
+                        @RequestParam("course") Long courseId) {
+        Enrollment enrollment = new Enrollment();
+        enrollment.setStudent(studentService.findById(studentId).orElse(null));
+        enrollment.setCourse(courseService.findById(courseId).orElse(null));
+        enrollment.setEnrollmentDate(LocalDate.now());
         enrollmentService.enroll(enrollment);
         return "redirect:/schedule/list";
     }
