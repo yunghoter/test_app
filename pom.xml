@@ -1,25 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Конфігурація Maven проекту -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://www.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
+  <!-- Батьківський проект Spring Boot -->
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.7.18</version>
   </parent>
   
+  <!-- Інформація про проект -->
   <groupId>com.college</groupId>
   <artifactId>college-schedule</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>college-schedule-app</name>
   
+  <!-- Властивості проекту -->
   <properties>
     <java.version>17</java.version>
   </properties>
   
+  <!-- Залежності проекту -->
   <dependencies>
-    <!-- Spring Boot Starters -->
+    <!-- Стартери Spring Boot -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -33,13 +39,13 @@
       <artifactId>spring-boot-starter-thymeleaf</artifactId>
     </dependency>
     
-    <!-- Database -->
+    <!-- База даних -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
     </dependency>
     
-    <!-- Developer Tools -->
+    <!-- Інструменти розробника -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
@@ -47,7 +53,7 @@
       <optional>true</optional>
     </dependency>
     
-    <!-- Test Dependencies -->
+    <!-- Залежності для тестування -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -60,8 +66,10 @@
     </dependency>
   </dependencies>
   
+  <!-- Налаштування звітів -->
   <reporting>
     <plugins>
+      <!-- Звіти про тести -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
@@ -72,6 +80,7 @@
         <artifactId>maven-failsafe-report-plugin</artifactId>
         <version>3.2.5</version>
       </plugin>
+      <!-- Звіт про покриття коду -->
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
@@ -87,12 +96,16 @@
     </plugins>
   </reporting>
 
+  <!-- Налаштування збірки -->
   <build>
     <plugins>
+      <!-- Плагін Spring Boot -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+      
+      <!-- Налаштування модульних тестів -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -116,6 +129,8 @@
           </reportPlugins>
         </configuration>
       </plugin>
+      
+      <!-- Налаштування інтеграційних тестів -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
@@ -131,20 +146,13 @@
                 <include>**/*IntegrationTest.java</include>
               </includes>
               <reportFormat>html</reportFormat>
-              <reportPlugins>
-                <reportPlugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-failsafe-report-plugin</artifactId>
-                  <configuration>
-                    <showSuccess>true</showSuccess>
-                    <outputDirectory>${project.build.directory}/site</outputDirectory>
-                  </configuration>
-                </reportPlugin>
-              </reportPlugins>
+              <reportsDirectory>${project.build.directory}/failsafe-reports</reportsDirectory>
             </configuration>
           </execution>
         </executions>
       </plugin>
+      
+      <!-- Додавання тестових ресурсів -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
@@ -178,6 +186,8 @@
           </execution>
         </executions>
       </plugin>
+      
+      <!-- Налаштування перевірки покриття коду тестами -->
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
@@ -224,8 +234,32 @@
           </execution>
         </executions>
       </plugin>
+      
+      <!-- Налаштування перевірки стилю коду -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.3.1</version>
+        <configuration>
+          <configLocation>google_checks.xml</configLocation>
+          <encoding>UTF-8</encoding>
+          <consoleOutput>true</consoleOutput>
+          <failsOnError>true</failsOnError>
+          <linkXRef>false</linkXRef>
+        </configuration>
+        <executions>
+          <execution>
+            <id>validate</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
     
+    <!-- Налаштування директорій проекту -->
     <sourceDirectory>src/main/java</sourceDirectory>
     <testSourceDirectory>src/test/java</testSourceDirectory>
     

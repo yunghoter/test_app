@@ -1,5 +1,5 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+# Цей workflow збирає Java проект з Maven та кешує/відновлює залежності для покращення швидкості виконання
+# Для отримання додаткової інформації дивіться: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
 
 name: Maven Build Check
 
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      # Add PostgreSQL service container for integration tests
+      # Додавання контейнера PostgreSQL для інтеграційних тестів
       postgres:
         image: postgres:latest
         env:
@@ -40,27 +40,30 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Set up JDK 17
+    - name: Налаштування JDK 17
       uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
 
-    - name: Run Unit Tests with Coverage
+    - name: Перевірка стилю коду
+      run: mvn checkstyle:check
+      
+    - name: Запуск модульних тестів з покриттям
       run: mvn clean compile test jacoco:report
       env:
         SPRING_PROFILES_ACTIVE: test
 
-    # Run integration tests and generate reports  
-    - name: Run Integration Tests
+    # Запуск інтеграційних тестів та генерація звітів
+    - name: Запуск інтеграційних тестів
       run: mvn verify -DskipUnitTests failsafe:integration-test failsafe:report
       env:
         DB_PASSWORD: postgres
         SPRING_PROFILES_ACTIVE: test
 
-    # Upload test and coverage reports
-    - name: Upload Reports
+    # Завантаження звітів про тести та покриття
+    - name: Завантаження звітів
       if: always()
       uses: actions/upload-artifact@v4
       with:
@@ -70,3 +73,4 @@ jobs:
           target/site/surefire-report.html
           target/surefire-reports/
           target/failsafe-reports/
+          target/site/checkstyle.html

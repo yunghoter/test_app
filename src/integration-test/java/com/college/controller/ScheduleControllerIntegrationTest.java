@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+// Інтеграційний тест контролера розкладу
 @SpringBootTest(
     classes = MainApp.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -45,31 +46,37 @@ public class ScheduleControllerIntegrationTest {
     private Course course;
     private Room room;
 
+    // Підготовка тестових даних
     @BeforeEach
     void setUp() {
+        // Створення тестової кафедри
         department = new Department();
-        department.setName("Computer Science");
-        department.setLocation("Building A");
+        department.setName("Комп'ютерні науки");
+        department.setLocation("Корпус А");
         departmentService.save(department);
 
+        // Створення тестового викладача
         teacher = new Teacher();
-        teacher.setFirstName("John");
-        teacher.setLastName("Doe");
+        teacher.setFirstName("Іван");
+        teacher.setLastName("Петренко");
         teacher.setDepartment(department);
         teacherService.save(teacher);
 
+        // Створення тестового курсу
         course = new Course();
-        course.setCourseName("Java Programming");
+        course.setCourseName("Програмування Java");
         course.setCredits(3);
         course.setDepartment(department);
         courseService.save(course);
 
+        // Створення тестової аудиторії
         room = new Room();
         room.setRoomNumber("101");
         room.setCapacity(30);
         roomService.save(room);
     }
 
+    // Тест перегляду списку розкладу
     @Test
     void listSchedule_ShouldDisplaySchedulePage() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/schedule/list"))
@@ -78,6 +85,7 @@ public class ScheduleControllerIntegrationTest {
                 .andExpect(model().attributeExists("schedules"));
     }
 
+    // Тест відображення форми додавання заняття
     @Test
     void showAddForm_ShouldDisplayAddForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/schedule/add"))
@@ -89,13 +97,14 @@ public class ScheduleControllerIntegrationTest {
                 .andExpect(model().attributeExists("classSchedule"));
     }
 
+    // Тест створення нового заняття
     @Test
     void addSchedule_ShouldCreateNewScheduleAndRedirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/schedule/add")
                 .param("course", course.getCourseId().toString())
                 .param("teacher", teacher.getTeacherId().toString())
                 .param("room", room.getRoomId().toString())
-                .param("semester", "Fall")
+                .param("semester", "Осінь")
                 .param("year", "2024")
                 .param("startTime", "09:00")
                 .param("endTime", "10:30"))
@@ -103,6 +112,7 @@ public class ScheduleControllerIntegrationTest {
                 .andExpect(redirectedUrl("/schedule/list"));
     }
 
+    // Тест валідації даних при створенні заняття
     @Test
     void addSchedule_WithInvalidData_ShouldReturnToForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/schedule/add")
@@ -110,9 +120,9 @@ public class ScheduleControllerIntegrationTest {
                 .param("teacher", "")
                 .param("room", "")
                 .param("semester", "")
-                .param("year", "invalid")
-                .param("startTime", "invalid")
-                .param("endTime", "invalid"))
+                .param("year", "невірний")
+                .param("startTime", "невірний")
+                .param("endTime", "невірний"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("schedule/add-form"))
                 .andExpect(model().attributeExists("teachers"))

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+// Інтеграційний тест контролера реєстрації на курси
 @SpringBootTest(
     classes = MainApp.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
@@ -40,26 +41,31 @@ public class EnrollmentControllerIntegrationTest {
     private Student student;
     private Course course;
 
+    // Підготовка тестових даних
     @BeforeEach
     void setUp() {
+        // Створення тестової кафедри
         Department department = new Department();
-        department.setName("Computer Science");
-        department.setLocation("Building A");
+        department.setName("Комп'ютерні науки");
+        department.setLocation("Корпус А");
         departmentService.save(department);
 
+        // Створення тестового студента
         student = new Student();
-        student.setFirstName("Alice");
-        student.setLastName("Smith");
+        student.setFirstName("Марія");
+        student.setLastName("Коваленко");
         student.setDepartment(department);
         studentService.save(student);
 
+        // Створення тестового курсу
         course = new Course();
-        course.setCourseName("Java Programming");
+        course.setCourseName("Програмування Java");
         course.setCredits(3);
         course.setDepartment(department);
         courseService.save(course);
     }
 
+    // Тест відображення форми реєстрації
     @Test
     void showEnrollmentForm_ShouldDisplayForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/enrollment/enroll"))
@@ -70,6 +76,7 @@ public class EnrollmentControllerIntegrationTest {
                 .andExpect(model().attributeExists("courses"));
     }
 
+    // Тест успішної реєстрації на курс
     @Test
     void enroll_ShouldCreateEnrollmentAndRedirect() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/enrollment/enroll")
@@ -79,6 +86,7 @@ public class EnrollmentControllerIntegrationTest {
                 .andExpect(redirectedUrl("/schedule/list"));
     }
 
+    // Тест валідації даних при реєстрації
     @Test
     void enroll_WithInvalidData_ShouldReturnToForm() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/enrollment/enroll")
