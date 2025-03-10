@@ -1,6 +1,7 @@
 package com.college.controller;
 
 import com.college.entity.ClassSchedule;
+import com.college.entity.Enrollment;
 import com.college.entity.ScheduleInfoDTO;
 import com.college.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -21,6 +23,7 @@ public class ScheduleController {
     private final CourseService courseService;
     private final RoomService roomService;
     private final ClassScheduleService classScheduleService;
+    private final EnrollmentService enrollmentService;
 
     @Autowired
     public ScheduleController(ScheduleService scheduleService,
@@ -28,13 +31,15 @@ public class ScheduleController {
                             TeacherService teacherService,
                             CourseService courseService,
                             RoomService roomService,
-                            ClassScheduleService classScheduleService) {
+                            ClassScheduleService classScheduleService,
+                            EnrollmentService enrollmentService) {
         this.scheduleService = scheduleService;
         this.studentService = studentService;
         this.teacherService = teacherService;
         this.courseService = courseService;
         this.roomService = roomService;
         this.classScheduleService = classScheduleService;
+        this.enrollmentService = enrollmentService;
     }
 
     @GetMapping("/list")
@@ -63,6 +68,7 @@ public class ScheduleController {
             @RequestParam(value = "year", required = false) String yearStr,
             @RequestParam(value = "startTime", required = false) String startTime,
             @RequestParam(value = "endTime", required = false) String endTime,
+            @RequestParam(value = "students", required = false) List<Long> studentIds,
             Model model) {
         
         try {
@@ -71,7 +77,12 @@ public class ScheduleController {
                 startTime == null || endTime == null || 
                 semester.trim().isEmpty() || yearStr.trim().isEmpty() ||
                 startTime.trim().isEmpty() || endTime.trim().isEmpty()) {
-                throw new IllegalArgumentException("All fields are required");
+                model.addAttribute("students", studentService.findAll());
+                model.addAttribute("teachers", teacherService.findAll());
+                model.addAttribute("courses", courseService.findAll());
+                model.addAttribute("rooms", roomService.findAll());
+                model.addAttribute("classSchedule", new ClassSchedule());
+                return "schedule/add-form";
             }
 
             Integer year = Integer.parseInt(yearStr);
@@ -88,9 +99,20 @@ public class ScheduleController {
             classSchedule.setStartTime(parsedStartTime);
             classSchedule.setEndTime(parsedEndTime);
 
-            classScheduleService.save(classSchedule);
+            classSchedule = classScheduleService.save(classSchedule);
+
+            // Create enrollments for selected students
+            if (studentIds != null && !studentIds.isEmpty()) {
+                for (Long studentId : studentIds) {
+                    Enrollment enrollment = new Enrollment();
+                    enrollment.setStudent(studentService.findById(studentId).orElseThrow());
+                    enrollment.setCourse(classSchedule.getCourse());
+                    enrollment.setEnrollmentDate(LocalDate.now());
+                    enrollmentService.save(enrollment);
+                }
+            }
+
             return "redirect:/schedule/list";
-            
         } catch (Exception e) {
             model.addAttribute("students", studentService.findAll());
             model.addAttribute("teachers", teacherService.findAll());

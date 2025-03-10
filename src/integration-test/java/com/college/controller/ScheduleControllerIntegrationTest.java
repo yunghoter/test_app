@@ -5,6 +5,7 @@ import com.college.entity.Course;
 import com.college.entity.Department;
 import com.college.entity.Room;
 import com.college.entity.Teacher;
+import com.college.entity.Student;
 import com.college.service.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,10 +46,14 @@ public class ScheduleControllerIntegrationTest {
     @Autowired
     private RoomService roomService;
 
+    @Autowired
+    private StudentService studentService;
+
     private Department department;
     private Teacher teacher;
     private Course course;
     private Room room;
+    private Student student;
 
     // Підготовка тестових даних
     @BeforeEach
@@ -78,9 +83,15 @@ public class ScheduleControllerIntegrationTest {
         room.setRoomNumber("101");
         room.setCapacity(30);
         roomService.save(room);
+
+        // Створення тестового студента
+        student = new Student();
+        student.setFirstName("Марія");
+        student.setLastName("Коваленко");
+        student.setDepartment(department);
+        studentService.save(student);
     }
 
-    // Тест перегляду списку розкладу
     @Test
     void listSchedule_ShouldDisplaySchedulePage() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/schedule/list"))
@@ -98,6 +109,7 @@ public class ScheduleControllerIntegrationTest {
                 .andExpect(model().attributeExists("teachers"))
                 .andExpect(model().attributeExists("courses"))
                 .andExpect(model().attributeExists("rooms"))
+                .andExpect(model().attributeExists("students"))
                 .andExpect(model().attributeExists("classSchedule"));
     }
 
@@ -111,7 +123,8 @@ public class ScheduleControllerIntegrationTest {
                 .param("semester", "Осінь")
                 .param("year", "2024")
                 .param("startTime", "09:00")
-                .param("endTime", "10:30"))
+                .param("endTime", "10:30")
+                .param("students", student.getStudentId().toString()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/schedule/list"));
     }
@@ -126,12 +139,14 @@ public class ScheduleControllerIntegrationTest {
                 .param("semester", "")
                 .param("year", "невірний")
                 .param("startTime", "невірний")
-                .param("endTime", "невірний"))
+                .param("endTime", "невірний")
+                .param("students", ""))
                 .andExpect(status().isOk())
                 .andExpect(view().name("schedule/add-form"))
                 .andExpect(model().attributeExists("teachers"))
                 .andExpect(model().attributeExists("courses"))
                 .andExpect(model().attributeExists("rooms"))
+                .andExpect(model().attributeExists("students"))
                 .andExpect(model().attributeExists("classSchedule"));
     }
 }
