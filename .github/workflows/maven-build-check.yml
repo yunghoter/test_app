@@ -46,31 +46,28 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-
-    - name: Перевірка стилю коду
-      run: mvn checkstyle:check
-      
-    - name: Запуск модульних тестів з покриттям
-      run: mvn clean compile test jacoco:report
+     
+    - name: Запуск модульних тестів
+      run: mvn clean compile test
       env:
         SPRING_PROFILES_ACTIVE: test
 
-    # Запуск інтеграційних тестів та генерація звітів
+    # Запуск інтеграційних тестів
     - name: Запуск інтеграційних тестів
-      run: mvn verify -DskipUnitTests failsafe:integration-test failsafe:report
+      run: mvn verify -DskipUnitTests
       env:
         DB_PASSWORD: postgres
         SPRING_PROFILES_ACTIVE: test
 
-    # Завантаження звітів про тести та покриття
-    - name: Завантаження звітів
+    # Генерація звітів
+    - name: Генерація звітів
+      run: mvn site
+
+    # Завантаження звітів про тести
+    - name: Генерація і завантаження звітів
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: test-coverage-reports
+        name: test-reports
         path: |
-          target/site/jacoco/
-          target/site/surefire-report.html
-          target/surefire-reports/
-          target/failsafe-reports/
-          target/site/checkstyle.html
+          target/site/

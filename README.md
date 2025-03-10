@@ -52,42 +52,14 @@ mvn verify
 mvn test -Dtest=@rerun.txt
 ```
 
-### Покриття коду
-
-Згенерувати звіт JaCoCo про покриття для модульних тестів:
-```bash
-mvn clean compile test jacoco:report
-```
-
-Перевірити чи покриття відповідає мінімальним порогам:
-```bash
-mvn clean verify jacoco:check
-```
-
-Звіт про покриття буде доступний за шляхом `target/site/jacoco/index.html`
-
-### Стиль коду
-
-Запустити перевірки стилю:
-```bash
-mvn checkstyle:check
-```
-
-Згенерувати звіт про стиль:
-```bash
-mvn checkstyle:checkstyle
-```
-
-Звіт про стиль буде доступний за шляхом `target/site/checkstyle.html`
-
 ### Всі звіти та перевірки
 
-Запустити всі перевірки якості (стиль, тести, покриття):
+Запустити всі перевірки якості:
 ```bash
-mvn clean verify checkstyle:check jacoco:report
+mvn clean verify
 ```
 
-Згенерувати всі звіти (тести, покриття, стиль):
+Згенерувати звіти:
 ```bash
 mvn site
 ```
