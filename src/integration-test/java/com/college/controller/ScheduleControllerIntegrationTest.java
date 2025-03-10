@@ -113,6 +113,11 @@ public class ScheduleControllerIntegrationTest {
                 .param("year", "invalid")
                 .param("startTime", "invalid")
                 .param("endTime", "invalid"))
-                .andExpect(status().is3xxRedirection());
+                .andExpect(status().isOk())
+                .andExpect(view().name("schedule/add-form"))
+                .andExpect(model().attributeExists("teachers"))
+                .andExpect(model().attributeExists("courses"))
+                .andExpect(model().attributeExists("rooms"))
+                .andExpect(model().attributeExists("classSchedule"));
     }
 }

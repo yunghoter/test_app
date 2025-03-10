@@ -84,6 +84,10 @@ public class EnrollmentControllerIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/enrollment/enroll")
                 .param("student", "")
                 .param("course", ""))
-                .andExpect(status().is3xxRedirection());
+                .andExpect(status().isOk())
+                .andExpect(view().name("enrollment/enroll-form"))
+                .andExpect(model().attributeExists("enrollment"))
+                .andExpect(model().attributeExists("students"))
+                .andExpect(model().attributeExists("courses"));
     }
 }

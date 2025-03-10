@@ -36,8 +36,16 @@ public class EnrollmentController {
     }
 
     @PostMapping("/enroll")
-    public String enroll(@RequestParam("student") Long studentId,
-                        @RequestParam("course") Long courseId) {
+    public String enroll(@RequestParam(value = "student", required = false) Long studentId,
+                        @RequestParam(value = "course", required = false) Long courseId,
+                        Model model) {
+        if (studentId == null || courseId == null) {
+            model.addAttribute("enrollment", new Enrollment());
+            model.addAttribute("students", studentService.findAll());
+            model.addAttribute("courses", courseService.findAll());
+            return "enrollment/enroll-form";
+        }
+
         Enrollment enrollment = new Enrollment();
         enrollment.setStudent(studentService.findById(studentId).orElse(null));
         enrollment.setCourse(courseService.findById(courseId).orElse(null));
