@@ -1,8 +1,8 @@
 package com.college.controller;
 
-import com.college.Enrollment;
 import com.college.service.EnrollmentService;
 import com.college.service.StudentService;
+import com.college.entity.Enrollment;
 import com.college.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

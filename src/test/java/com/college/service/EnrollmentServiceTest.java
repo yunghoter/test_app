@@ -1,8 +1,8 @@
 package com.college.service;
 
-import com.college.Course;
-import com.college.Enrollment;
-import com.college.Student;
+import com.college.entity.Course;
+import com.college.entity.Enrollment;
+import com.college.entity.Student;
 import com.college.repository.EnrollmentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

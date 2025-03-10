@@ -1,6 +1,12 @@
 package com.college.config;
 
-import com.college.*;
+import com.college.entity.ClassSchedule;
+import com.college.entity.Course;
+import com.college.entity.Department;
+import com.college.entity.Enrollment;
+import com.college.entity.Room;
+import com.college.entity.Student;
+import com.college.entity.Teacher;
 import com.college.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

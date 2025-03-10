@@ -1,6 +1,6 @@
 package com.college.service;
 
-import com.college.Room;
+import com.college.entity.Room;
 import com.college.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

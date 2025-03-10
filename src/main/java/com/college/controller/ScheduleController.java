@@ -1,10 +1,7 @@
 package com.college.controller;
 
-import com.college.ClassSchedule;
-import com.college.Course;
-import com.college.Room;
-import com.college.Teacher;
-import com.college.ScheduleInfoDTO;
+import com.college.entity.ClassSchedule;
+import com.college.entity.ScheduleInfoDTO;
 import com.college.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Controller

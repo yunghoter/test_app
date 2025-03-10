@@ -1,6 +1,10 @@
 package com.college.controller;
 
-import com.college.*;
+import com.college.MainApp;
+import com.college.entity.Course;
+import com.college.entity.Department;
+import com.college.entity.Room;
+import com.college.entity.Teacher;
 import com.college.service.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

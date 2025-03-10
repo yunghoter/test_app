@@ -1,6 +1,6 @@
 package com.college.service;
 
-import com.college.ClassSchedule;
+import com.college.entity.ClassSchedule;
 import com.college.repository.ClassScheduleRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

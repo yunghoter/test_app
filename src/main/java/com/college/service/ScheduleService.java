@@ -1,6 +1,6 @@
 package com.college.service;
 
-import com.college.ScheduleInfoDTO;
+import com.college.entity.ScheduleInfoDTO;
 import com.college.repository.ClassScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class ScheduleService {
 
     @SuppressWarnings("unchecked")
     public List<ScheduleInfoDTO> getScheduleInfo() {
-        String jpql = "SELECT new com.college.ScheduleInfoDTO(" +
+        String jpql = "SELECT new com.college.entity.ScheduleInfoDTO(" +
                 "s.firstName, s.lastName, " +
                 "t.firstName, t.lastName, " +
                 "c.courseName, d.name, " +

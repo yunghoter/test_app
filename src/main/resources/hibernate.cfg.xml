@@ -28,12 +28,12 @@
         <property name="hibernate.current_session_context_class">thread</property>
 
         <!-- Перелік анотованих класів-сутностей -->
-        <mapping class="com.college.Department"/>
-        <mapping class="com.college.Teacher"/>
-        <mapping class="com.college.Student"/>
-        <mapping class="com.college.Course"/>
-        <mapping class="com.college.Room"/>
-        <mapping class="com.college.ClassSchedule"/>
-        <mapping class="com.college.Enrollment"/>
+        <mapping class="com.college.entity.Department"/>
+        <mapping class="com.college.entity.Teacher"/>
+        <mapping class="com.college.entity.Student"/>
+        <mapping class="com.college.entity.Course"/>
+        <mapping class="com.college.entity.Room"/>
+        <mapping class="com.college.entity.ClassSchedule"/>
+        <mapping class="com.college.entity.Enrollment"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,4 +1,4 @@
-package com.college;
+package com.college.entity;
 
 import javax.persistence.*;
 

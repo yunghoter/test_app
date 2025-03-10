@@ -1,6 +1,6 @@
 package com.college.service;
 
-import com.college.Teacher;
+import com.college.entity.Teacher;
 import com.college.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

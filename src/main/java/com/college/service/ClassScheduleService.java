@@ -1,6 +1,6 @@
 package com.college.service;
 
-import com.college.ClassSchedule;
+import com.college.entity.ClassSchedule;
 import com.college.repository.ClassScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
