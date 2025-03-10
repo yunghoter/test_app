@@ -47,10 +47,11 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    # Run unit tests and generate reports
-    - name: Run Unit Tests
-      run: mvn test surefire-report:report
-      
+    - name: Run Unit Tests with Coverage
+      run: mvn clean compile test jacoco:report
+      env:
+        SPRING_PROFILES_ACTIVE: test
+
     # Run integration tests and generate reports  
     - name: Run Integration Tests
       run: mvn verify -DskipUnitTests failsafe:integration-test failsafe:report
@@ -58,14 +59,14 @@ jobs:
         DB_PASSWORD: postgres
         SPRING_PROFILES_ACTIVE: test
 
-    # Store test reports as artifacts
-    - name: Upload Test Reports
+    # Upload test and coverage reports
+    - name: Upload Reports
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: test-reports
+        name: test-coverage-reports
         path: |
+          target/site/jacoco/
           target/site/surefire-report.html
-          target/site/failsafe-report.html
           target/surefire-reports/
           target/failsafe-reports/
