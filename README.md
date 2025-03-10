@@ -39,7 +39,7 @@ mvn test
 
 Запуск лише інтеграційних тестів:
 ```bash
-mvn verify -DskipUnitTests failsafe:integration-test
+mvn verify -DskipUnitTests
 ```
 
 Запуск всіх тестів (модульних + інтеграційних):
@@ -66,7 +66,7 @@ mvn site
 
 Всі звіти будуть доступні в директорії `target/site`.
 
-# Кроки для виконання
+# Кроки для запуску програми
 1. Встановіть локально PostgreSQL, Maven та Java.
 2. Створіть базу даних college_db.
 3. Встановіть змінну середовища `DB_PASSWORD` з паролем для бази даних PostgreSQL.
