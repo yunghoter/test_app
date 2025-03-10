@@ -16,7 +16,7 @@
 
 **Windows:**
 ```
-$env:DB_PASSWORD = your_password
+$env:DB_PASSWORD = "your_password"
 ```
 
 **Linux/macOS:**
