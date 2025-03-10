@@ -24,6 +24,8 @@ public class ClassSchedule {
     private Room room;
 
     private String semester;
+    
+    @Column(name = "\"year\"")
     private int year;
 
     @Column(name = "start_time")
