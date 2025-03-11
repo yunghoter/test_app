@@ -66,13 +66,14 @@ mvn site
 
 Всі звіти будуть доступні в директорії `target/site`.
 
-# Кроки для запуску програми
+# Кроки для запуску програми і відкриття web-interface
 1. Встановіть локально PostgreSQL, Maven та Java.
 2. Створіть базу даних college_db.
-3. Встановіть змінну середовища `DB_PASSWORD` з паролем для бази даних PostgreSQL.
+3. Встановіть змінну середовища `DB_PASSWORD` з паролем для бази даних PostgreSQL: `$env:DB_PASSWORD = "db-password"`
 4. Для Windows налаштуйте консоль на використання UTF-8 кодування: `chcp 65001`
 5. Зберіть програму за допомогою команди: `mvn clean install`.
-6. Запустіть програму за допомогою команди: `mvn exec:java -D"exec.mainClass=com.college.MainApp"`.
+6. Запустіть програму за допомогою команди: `mvn exec:java -"Dexec.mainClass=com.college.MainApp"`.
+7. Відкрийте web-interface в браузері за адресою localhost:8080
 
 ## Використання змінних середовища для паролів бази даних
 
