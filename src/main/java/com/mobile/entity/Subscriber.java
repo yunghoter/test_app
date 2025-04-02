@@ -17,7 +17,7 @@ public class Subscriber {
     private double balance;
     
     @ManyToOne
-    @JoinColumn(name = "tariff_id")
+    @JoinColumn(name = "tariff_id", nullable = false) // Додано nullable = false
     private Tariff tariff;
     
     @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)

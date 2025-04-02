@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Конфігурація Maven проекту -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://www.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
-  <!-- Батьківський проект Spring Boot -->
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.7.18</version>
   </parent>
   
-  <!-- Інформація про проект -->
   <groupId>com.mobile</groupId>
   <artifactId>mobile-operator</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>mobile-operator-app</name>
   
-  <!-- Властивості проекту -->
   <properties>
     <java.version>17</java.version>
+    <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+    <maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
   </properties>
   
-  <!-- Залежності проекту -->
   <dependencies>
-    <!-- Стартери Spring Boot -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -44,13 +40,11 @@
       <version>3.1.0</version>
     </dependency>
     
-    <!-- База даних -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
     </dependency>
     
-    <!-- Інструменти розробника -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
@@ -58,11 +52,16 @@
       <optional>true</optional>
     </dependency>
     
-    <!-- Залежності для тестування -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.h2database</groupId>
@@ -70,97 +69,49 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
-  <!-- Налаштування звітів -->
-  <reporting>
-    <plugins>
-      <!-- Звіти про тести -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>3.2.5</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.2.5</version>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>integration-test</report>
-              <report>verify</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-    </plugins>
-  </reporting>
 
-  <!-- Налаштування збірки -->
   <build>
     <plugins>
-      <!-- Плагін Spring Boot -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
       
-      <!-- Налаштування модульних тестів -->
+      <!-- Модульні тести -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
         <configuration>
           <includes>
             <include>**/*Test.java</include>
           </includes>
           <excludes>
-            <exclude>**/*IntegrationTest.java</exclude>
+            <exclude>**/*IT.java</exclude>
           </excludes>
-          <reportFormat>html</reportFormat>
-          <reportPlugins>
-            <reportPlugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-surefire-report-plugin</artifactId>
-              <configuration>
-                <showSuccess>true</showSuccess>
-                <outputDirectory>${project.build.directory}/site</outputDirectory>
-              </configuration>
-            </reportPlugin>
-          </reportPlugins>
         </configuration>
       </plugin>
       
-      <!-- Налаштування інтеграційних тестів -->
+      <!-- Інтеграційні тести -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.2.5</version>
+        <version>${maven-failsafe-plugin.version}</version>
         <executions>
           <execution>
-            <id>integration-tests</id>
             <goals>
               <goal>integration-test</goal>
               <goal>verify</goal>
             </goals>
             <configuration>
               <includes>
-                <include>**/*IntegrationTest.java</include>
+                <include>**/*IT.java</include>
               </includes>
-              <reportFormat>html</reportFormat>
-              <reportsDirectory>${project.build.directory}/failsafe-reports</reportsDirectory>
             </configuration>
           </execution>
         </executions>
       </plugin>
 
-      <!-- Site plugin configuration -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-        <version>3.12.1</version>
-      </plugin>
-      
-      <!-- Додавання тестових ресурсів -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
@@ -194,12 +145,7 @@
           </execution>
         </executions>
       </plugin>
-      
     </plugins>
-    
-    <!-- Налаштування директорій проекту -->
-    <sourceDirectory>src/main/java</sourceDirectory>
-    <testSourceDirectory>src/test/java</testSourceDirectory>
     
     <resources>
       <resource>
@@ -212,11 +158,27 @@
         <directory>src/test/resources</directory>
       </testResource>
       <testResource>
-        <directory>src/integration-test/java</directory>
-        <includes>
-          <include>**/*.java</include>
-        </includes>
+        <directory>src/integration-test/resources</directory>
       </testResource>
     </testResources>
   </build>
+
+  <profiles>
+    <profile>
+      <id>integration-test</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <configuration>
+              <systemPropertyVariables>
+                <spring.profiles.active>test</spring.profiles.active>
+              </systemPropertyVariables>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
