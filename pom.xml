@@ -12,11 +12,11 @@
   </parent>
   
   <!-- Інформація про проект -->
-  <groupId>com.college</groupId>
-  <artifactId>college-schedule</artifactId>
+  <groupId>com.mobile</groupId>
+  <artifactId>mobile-operator</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>college-schedule-app</name>
+  <name>mobile-operator-app</name>
   
   <!-- Властивості проекту -->
   <properties>
