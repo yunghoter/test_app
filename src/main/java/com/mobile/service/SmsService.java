@@ -24,6 +24,10 @@ public class SmsService {
         return smsRepository.findBySubscriberId(subscriberId);
     }
 
+    public List<Sms> findAll() {
+        return smsRepository.findAll();
+    }
+
     public void deleteAll() {
         smsRepository.deleteAll();
     }

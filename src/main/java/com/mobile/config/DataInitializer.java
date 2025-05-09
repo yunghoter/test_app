@@ -26,14 +26,20 @@ public class DataInitializer implements CommandLineRunner {
         this.smsService = smsService;
     }
 
-    @Override
-    @Transactional
-    public void run(String... args) {
-        // Перевірка, чи дані вже існують
-        if (subscriberService.findAll().isEmpty()) {
-            initializeData();
-        }
+@Override
+@Transactional
+public void run(String... args) {
+    cleanupDatabase();
+    System.out.println("Subscribers in DB: " + subscriberService.findAll().size());
+
+    if (subscriberService.findAll().isEmpty()) {
+
+        System.out.println("Initializing default data...");
+        initializeData();
+    } else {
+        System.out.println("Data already exists, skipping initialization.");
     }
+}
 
     private void initializeData() {
         // Очистка бази даних
@@ -54,7 +60,14 @@ public class DataInitializer implements CommandLineRunner {
         // SMS
         createSms(sub1, "SYSTEM", "SUBSCRIBER");
         createSms(sub2, "SYSTEM", "SUBSCRIBER");
+
+        System.out.println("Subscribers: " + subscriberService.findAll().size());
+System.out.println("Calls: " + callService.findAll().size());
+System.out.println("SMS: " + smsService.findAll().size());
     }
+
+
+
 
     private Tariff createTariff(String name, double callRate, double smsRate) {
         Tariff tariff = new Tariff(name, callRate, smsRate);
