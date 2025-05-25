@@ -20,12 +20,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="tariff : ${tariffs}">
-            <td th:text="${tariff.id}"></td>
-            <td th:text="${tariff.name}"></td>
-            <td th:text="${tariff.callRate}"></td>
-            <td th:text="${tariff.smsRate}"></td>
-        </tr>
+            <tr th:each="tariff : ${tariffs}">
+                <td th:text="${tariff.id}"></td>
+                <td th:text="${tariff.name}"></td>
+                <td th:text="${tariff.callRate}"></td>
+                <td th:text="${tariff.smsRate}"></td>
+            </tr>
         </tbody>
     </table>
 </div>

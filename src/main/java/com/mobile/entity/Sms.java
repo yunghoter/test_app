@@ -19,7 +19,7 @@ public class Sms {
     @JoinColumn(name = "subscriber_id")
     private Subscriber subscriber;
 
-    // Конструктори
+
     public Sms() {
     }
 public Sms(LocalDateTime sentDate, double cost, Subscriber subscriber) {
@@ -37,7 +37,7 @@ public Sms(LocalDateTime sentDate, double cost, Subscriber subscriber) {
         this.subscriber = subscriber;
     }
 
-    // Геттеры и сеттеры
+
     public Long getId() {
         return id;
     }

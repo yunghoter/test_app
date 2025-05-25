@@ -36,7 +36,7 @@ public class SubscriberService {
         return smsService.save(sms);
     }
 
-    // Метод для отримання SMS по ID підписника
+
     public List<Sms> findSmsBySubscriberId(Long subscriberId) {
         return smsService.findBySubscriberId(subscriberId);
     }

@@ -24,7 +24,11 @@ public class CallService {
         return callRepository.findBySubscriberId(subscriberId);
     }
 
-	  public void deleteAll() {
+    public List<Call> findAll() {
+        return callRepository.findAll();
+    }
+
+    public void deleteAll() {
         callRepository.deleteAll();
     }
 }

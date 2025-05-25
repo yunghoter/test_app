@@ -15,10 +15,14 @@
   <version>0.2.0-SNAPSHOT</version>
   <name>mobile-operator-app</name>
   
-  <properties>
+ <properties>
     <java.version>17</java.version>
-    <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+ <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
     <maven-failsafe-plugin.version>3.2.5</maven-failsafe-plugin.version>
+    <jacoco.version>0.8.8</jacoco.version>
+    <junit.version>5.8.2</junit.version>
+    <mockito.version>4.5.1</mockito.version>
+    <argLine>-Xmx1024m</argLine>
   </properties>
   
   <dependencies>
@@ -68,6 +72,28 @@
       <artifactId>h2</artifactId>
       <scope>test</scope>
     </dependency>
+
+<!--  -->
+<dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${mockito.version}</version>
+        <scope>test</scope>
+    </dependency>
+   
+    
   </dependencies>
 
   <build>
@@ -77,22 +103,24 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
       
-      <!-- Модульні тести -->
+     
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven-surefire-plugin.version}</version>
         <configuration>
-          <includes>
-            <include>**/*Test.java</include>
-          </includes>
-          <excludes>
-            <exclude>**/*IT.java</exclude>
-          </excludes>
+            <argLine>@{argLine} -Xmx1024m</argLine>
+            <includes>
+                <include>**/*Test.java</include>
+                <include>**/*Tests.java</include>
+            </includes>
+            <excludes>
+                <exclude>**/*IT.java</exclude>
+            </excludes>
         </configuration>
       </plugin>
       
-      <!-- Інтеграційні тести -->
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
@@ -145,6 +173,53 @@
           </execution>
         </executions>
       </plugin>
+
+
+        <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>${jacoco.version}</version>
+            <executions>
+                <execution>
+                    <id>prepare-agent</id>
+                    <goals>
+                        <goal>prepare-agent</goal>
+                    </goals>
+                    <configuration>
+                        <propertyName>surefire.argLine</propertyName>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>report</id>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven-surefire-plugin.version}</version>
+            <configuration>
+                <argLine>${surefire.argLine} ${argLine}</argLine>
+                <includes>
+                    <include>**/*Test.java</include>
+                    <include>**/*Tests.java</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*IT.java</exclude>
+                </excludes>
+                <forkCount>1</forkCount>
+                <reuseForks>true</reuseForks>
+                <systemPropertyVariables>
+                    <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                </systemPropertyVariables>
+            </configuration>
+        </plugin>
+
     </plugins>
     
     <resources>
