@@ -30,22 +30,13 @@ jobs:
     - name: Run Tests
       run: mvn test
       
-    - name: Publish to GitHub Packages
-      uses: actions/upload-artifact@v3
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
       with:
         name: mobile-operator-package
         path: target/*.jar
         
     - name: Publish to GitHub Packages Registry
       run: mvn -B deploy
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Generate Changelog
-      if: github.event_name == 'release'
-      uses: mikepenz/release-changelog-builder-action@v4
-      with:
-        toTag: ${{ github.event.release.tag_name }}
-        configuration: ".github/changelog-config.json"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
