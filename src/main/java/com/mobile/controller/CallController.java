@@ -41,7 +41,7 @@ public class CallController {
         call.setCost(calculateCallCost(duration, subscriber.getTariff().getCallRate()));
         callService.save(call);
         
-        // Update subscriber balance
+
         subscriber.setBalance(subscriber.getBalance() - call.getCost());
         subscriberService.save(subscriber);
         
@@ -49,6 +49,6 @@ public class CallController {
     }
 
     private double calculateCallCost(int duration, double rate) {
-        return duration * rate / 60; // cost per second
+        return duration * rate / 60;
     }
 }

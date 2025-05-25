@@ -18,7 +18,7 @@ public class Call {
     @JoinColumn(name = "subscriber_id")
     private Subscriber subscriber;
 
-    // Конструкторы
+
     public Call() {
     }
 
@@ -29,7 +29,7 @@ public class Call {
         this.subscriber = subscriber;
     }
 
-    // Геттеры и сеттеры
+
     public Long getId() {
         return id;
     }
@@ -69,4 +69,6 @@ public class Call {
     public void setSubscriber(Subscriber subscriber) {
         this.subscriber = subscriber;
     }
+
+    
 }

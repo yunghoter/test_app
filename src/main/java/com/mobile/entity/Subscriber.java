@@ -17,7 +17,7 @@ public class Subscriber {
     private double balance;
     
     @ManyToOne
-    @JoinColumn(name = "tariff_id", nullable = false) // Додано nullable = false
+    @JoinColumn(name = "tariff_id", nullable = false) 
     private Tariff tariff;
     
     @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
@@ -26,7 +26,7 @@ public class Subscriber {
     @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
     private List<Sms> smsList;
 
-    // Конструкторы
+
     public Subscriber() {
     }
 
@@ -37,7 +37,7 @@ public class Subscriber {
         this.tariff = tariff;
     }
 
-    // Геттеры и сеттеры
+
     public Long getId() {
         return id;
     }

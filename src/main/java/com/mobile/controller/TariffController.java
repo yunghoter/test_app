@@ -9,7 +9,7 @@ import com.mobile.service.TariffService;
 import com.mobile.service.SubscriberService;
 import com.mobile.service.CallService;
 
-@RestController
+@Controller
 @RequestMapping("/tariffs")
 public class TariffController {
     @Autowired private TariffService tariffService;
