@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface SubscriberRepository extends JpaRepository<Subscriber, Long> {
-    List<Subscriber> findAll(); // Цей метод вже є в JpaRepository, але можна явно оголосити
+    List<Subscriber> findAll(); 
 }

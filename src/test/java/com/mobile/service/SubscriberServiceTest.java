@@ -57,4 +57,15 @@ public class SubscriberServiceTest {
         assertNotNull(saved);
         assertEquals("123456789", saved.getPhoneNumber());
     }
+    @Test
+void deleteAll_ShouldCallRepository() {
+    subscriberService.deleteAll();
+    verify(repository, times(1)).deleteAll();
+}
+
+@Test
+void deleteById_ShouldCallRepository() {
+    subscriberService.deleteById(1L);
+    verify(repository, times(1)).deleteById(1L);
+}
 }

@@ -13,7 +13,7 @@ public class Tariff {
     private double callRate;
     private double smsRate;
 
-    // Конструкторы
+
     public Tariff() {
     }
 
@@ -23,7 +23,7 @@ public class Tariff {
         this.smsRate = smsRate;
     }
 
-    // Геттеры и сеттеры
+
     public Long getId() {
         return id;
     }
