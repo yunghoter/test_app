@@ -32,40 +32,49 @@ public class SubscriberServiceTest {
 
     @Test
     void findById_ShouldReturnSubscriber_WhenExists() {
-        // Arrange
+
         Subscriber subscriber = new Subscriber("123456789", "Test", 100.0, new Tariff());
         when(repository.findById(1L)).thenReturn(Optional.of(subscriber));
 
-        // Act
+
         Optional<Subscriber> found = subscriberService.findById(1L);
 
-        // Assert
+
         assertTrue(found.isPresent());
         assertEquals("123456789", found.get().getPhoneNumber());
     }
 
     @Test
     void save_ShouldReturnSavedSubscriber() {
-        // Arrange
+
         Subscriber subscriber = new Subscriber("123456789", "Test", 100.0, new Tariff());
         when(repository.save(subscriber)).thenReturn(subscriber);
 
-        // Act
+
         Subscriber saved = subscriberService.save(subscriber);
 
-        // Assert
+
         assertNotNull(saved);
         assertEquals("123456789", saved.getPhoneNumber());
     }
-    @Test
-void deleteAll_ShouldCallRepository() {
-    subscriberService.deleteAll();
-    verify(repository, times(1)).deleteAll();
-}
 
-@Test
-void deleteById_ShouldCallRepository() {
-    subscriberService.deleteById(1L);
-    verify(repository, times(1)).deleteById(1L);
-}
+    @Test
+    void deleteAll_ShouldCallRepository() {
+
+        subscriberService.deleteAll();
+
+
+        verify(smsService, times(1)).deleteAll();
+        verify(repository, times(1)).deleteAll();
+    }
+
+    @Test
+    void deleteById_ShouldCallRepository() {
+
+        subscriberService.deleteById(1L);
+
+
+        verify(smsService, times(1)).deleteBySubscriberId(1L);
+        verify(repository, times(1)).deleteById(1L);
+    }
 }

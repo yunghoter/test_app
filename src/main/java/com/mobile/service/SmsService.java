@@ -4,31 +4,38 @@ import com.mobile.entity.Sms;
 import com.mobile.repository.SmsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class SmsService {
-    private final SmsRepository smsRepository;
+    private final SmsRepository repository;
 
     @Autowired
-    public SmsService(SmsRepository smsRepository) {
-        this.smsRepository = smsRepository;
+    public SmsService(SmsRepository repository) {
+        this.repository = repository;
     }
 
     public Sms save(Sms sms) {
-        return smsRepository.save(sms);
-    }
-
-    public List<Sms> findBySubscriberId(Long subscriberId) {
-        return smsRepository.findBySubscriberId(subscriberId);
+        return repository.save(sms);
     }
 
     public List<Sms> findAll() {
-        return smsRepository.findAll();
+        return repository.findAll();
     }
 
+    public List<Sms> findBySubscriberId(Long subscriberId) {
+        return repository.findBySubscriberId(subscriberId);
+    }
+
+    @Transactional
+    public void deleteBySubscriberId(Long subscriberId) {
+        repository.deleteBySubscriberId(subscriberId);
+    }
+
+    @Transactional
     public void deleteAll() {
-        smsRepository.deleteAll();
+        repository.deleteAll();
     }
 }

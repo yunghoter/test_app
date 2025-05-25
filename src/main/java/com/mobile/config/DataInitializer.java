@@ -44,7 +44,8 @@ public void run(String... args) {
     private void initializeData() {
 
         cleanupDatabase();
-        
+         smsService.deleteAll();
+        subscriberService.deleteAll();
 
         Tariff basic = createTariff("Базовий", 0.5, 0.1);
         Tariff premium = createTariff("Преміум", 0.3, 0.05);
