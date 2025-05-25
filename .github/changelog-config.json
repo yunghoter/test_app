@@ -1,0 +1,38 @@
+{
+	"categories": [
+		 {
+			  "title": "## 🚀 Нові функції",
+			  "labels": ["feature", "enhancement"]
+		 },
+		 {
+			  "title": "## 🐛 Виправлення",
+			  "labels": ["bug", "fix"]
+		 },
+		 {
+			  "title": "## 📝 Документація",
+			  "labels": ["documentation"]
+		 },
+		 {
+			  "title": "## ⚙️ CI/CD",
+			  "labels": ["ci", "cd", "devops"]
+		 },
+		 {
+			  "title": "## ♻️ Рефакторинг",
+			  "labels": ["refactor"]
+		 },
+		 {
+			  "title": "## ✅ Тестування",
+			  "labels": ["test"]
+		 },
+		 {
+			  "title": "## 🔨 Інші зміни",
+			  "labels": ["*"]
+		 }
+	],
+	"template": "${{CHANGELOG}}\n\n## 🔗 Корисні посилання\n- [Документація](README.md)\n- [Повний список змін](https://github.com/${{OWNER}}/${{REPOSITORY}}/compare/${{PREVIOUS_TAG}}...${{TAG}})",
+	"pr_template": "- ${{TITLE}} (#${{NUMBER}} by @${{AUTHOR}})",
+	"empty_template": "- Немає змін у цій категорії",
+	"sort": "ASC",
+	"ignore_commits_with": ["chore", "style", "build"],
+	"base_branches": ["main"]
+}
