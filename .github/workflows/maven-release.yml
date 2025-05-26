@@ -40,6 +40,7 @@ jobs:
           -DreleaseVersion=${{ github.event.inputs.releaseVersion }} \
           -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} \
           -DtagNameFormat="v@{project.version}" \
+          -Darguments="-DskipTests" \
           -B
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
