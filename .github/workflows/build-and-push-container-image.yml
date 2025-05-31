@@ -13,6 +13,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
 
     steps:
       - name: Checkout source code
@@ -31,14 +34,19 @@ jobs:
       - name: Download JAR artifact from GitHub Packages
         run: |
           mkdir -p app
-          curl -u ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
-            -L https://maven.pkg.github.com/Deja-Vu101/mobile-app/com/mobile/mobile/${{ github.event.inputs.version_to_download }}/mobile-${{ github.event.inputs.version_to_download }}.jar \
-            -o app/app.jar
+          curl -sS -u ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }} \
+            -L "https://maven.pkg.github.com/Deja-Vu101/mobile-app/com/mobile/mobile/${{ github.event.inputs.version_to_download }}/mobile-${{ github.event.inputs.version_to_download }}.jar" \
+            -o app/app.jar || exit 1
+          echo "Downloaded JAR size: $(du -h app/app.jar | cut -f1)"
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/mobile:${{ github.event.inputs.docker_tag }}
+          tags: |
+            ghcr.io/deja-vu101/mobile:${{ github.event.inputs.docker_tag }}
+            ghcr.io/deja-vu101/mobile:latest
           file: Dockerfile
+          build-args: |
+            VERSION=${{ github.event.inputs.version_to_download }}
