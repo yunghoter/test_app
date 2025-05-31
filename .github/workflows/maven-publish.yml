@@ -13,6 +13,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      actions: write
       
     steps:
     - uses: actions/checkout@v4
@@ -40,3 +41,12 @@ jobs:
       run: mvn -B deploy
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Trigger Container Build Workflow
+      if: success()  # Only run if all previous steps succeeded
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: build-and-push-container-image.yml
+        token: ${{ secrets.GITHUB_TOKEN }}
+        inputs: '{ "version_to_download": "${{ steps.publish.outputs.version_to_download }}", "docker_tag": "${{ steps.publish.outputs.docker_tag }}" }'
+        ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
