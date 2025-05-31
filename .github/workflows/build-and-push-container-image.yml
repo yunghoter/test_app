@@ -15,17 +15,20 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write  # Потрібно для push у container registry
+      packages: write
 
     steps:
+    # 1. Checkout code
     - uses: actions/checkout@v3
 
+    # 2. Set up Java
     - name: Set up Java
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
 
+    # 3. Prepare build context (ВАШ КРОК)
     - name: Prepare build context
       run: |
         # Build JAR
@@ -36,13 +39,14 @@ jobs:
         cp target/*.jar build/app/app.jar
         
         # Verify structure
-        echo "Build context contents:"
-        ls -la build/app/
-        [ -f build/app/app.jar ] || (echo "app.jar not found!" && exit 1)
+        echo "Final structure before build:"
+        ls -R build/
 
+    # 4. Set up Docker Buildx
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
+    # 5. Login to GitHub Container Registry
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v2
       with:
@@ -50,10 +54,11 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    # 6. Build and push image (ВАШ КРОК)
     - name: Build and push image
       uses: docker/build-push-action@v4
       with:
-        context: build
+        context: .
         push: true
         tags: ghcr.io/deja-vu101/mobile:${{ github.event.inputs.docker_tag }}
         file: build/Dockerfile
