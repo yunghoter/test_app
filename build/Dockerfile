@@ -1,7 +1,7 @@
 # Build stage
-FROM eclipse-temurin:17-jdk as builder
+FROM eclipse-temurin:17-jdk AS builder
 WORKDIR /app
-COPY app/app.jar ./  # Чітко вказуємо шлях копіювання
+COPY build/app/app.jar ./app.jar  # Чіткий абсолютний шлях
 
 # Runtime stage
 FROM eclipse-temurin:17-jre
@@ -16,8 +16,8 @@ RUN apt-get update && \
 RUN addgroup --system --gid 1001 appgroup && \
     adduser --system --uid 1001 --gid 1001 appuser
 
-# Copy from builder stage
-COPY --from=builder /app/app.jar ./app.jar
+# Copy from builder
+COPY --from=builder /app/app.jar /app/app.jar
 RUN chown -R appuser:appgroup /app
 
 # Runtime config
