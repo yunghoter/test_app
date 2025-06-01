@@ -112,7 +112,9 @@
         <tagNameFormat>v@{project.version}</tagNameFormat>
         <autoVersionSubmodules>true</autoVersionSubmodules>
         <releaseProfiles>release</releaseProfiles>
-        <excludes>
+
+       <excludes>
+
             <exclude>**/CallServiceIntegrationTest.java</exclude>
         </excludes>
     </configuration>
