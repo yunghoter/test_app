@@ -59,4 +59,5 @@ jobs:
         tags: |
           ghcr.io/deja-vu101/mobile:${{ github.event.inputs.docker_tag }}
           ghcr.io/deja-vu101/mobile:latest
-        file: Dockerfile
+        file: build/Dockerfile
+
