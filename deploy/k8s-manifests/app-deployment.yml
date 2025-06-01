@@ -18,8 +18,8 @@ spec:
       - name: ghcr-secret
       containers:
       - name: app
-        image: ghcr.io/deja-vu101/mobile-app:0.3.0-SNAPSHOT
-        imagePullPolicy: Always  # Завжди завантажувати образ
+        image: ghcr.io/deja-vu101/mobile-app:0.3.0
+        imagePullPolicy: Always  
         ports:
         - containerPort: 8080
           name: http
