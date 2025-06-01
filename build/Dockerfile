@@ -1,4 +1,5 @@
 
+
 FROM eclipse-temurin:17-jdk AS builder
 WORKDIR /app
 COPY app/app.jar ./app.jar  
@@ -11,11 +12,13 @@ RUN apt-get update && \
     apt-get install -y curl && \
     rm -rf /var/lib/apt/lists/*
 
+
 RUN addgroup --system --gid 1001 appgroup && \
     adduser --system --uid 1001 --gid 1001 appuser
 
 COPY --from=builder /app/app.jar /app/app.jar
 RUN chown -R appuser:appgroup /app
+
 
 USER appuser
 EXPOSE 8080
