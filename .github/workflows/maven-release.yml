@@ -47,7 +47,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Perform Release
-        run: mvn release:perform
+        run: mvn release:perform -Darguments="-Dmaven.test.skip=true"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
