@@ -41,7 +41,8 @@ jobs:
           -DdevelopmentVersion=${{ github.event.inputs.developmentVersion }} \
           -DtagNameFormat="v@{project.version}" \
           -B \
-          -Darguments="-DskipTests -DskipITs"
+          -Darguments="-Dmaven.test.skip=true"
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
