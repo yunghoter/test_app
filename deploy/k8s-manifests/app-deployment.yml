@@ -27,7 +27,7 @@ spec:
         - name: SPRING_DATASOURCE_URL
           value: "jdbc:postgresql://postgres:5432/mobile-db?sslmode=disable"
         - name: SPRING_DATASOURCE_USERNAME
-          value: "postgres"
+          value: "kozachkov"
         - name: SPRING_DATASOURCE_PASSWORD
           value: "postgres"
         - name: SPRING_JPA_HIBERNATE_DDL_AUTO
@@ -73,7 +73,7 @@ spec:
         - sh
         - -c
         - |
-          until pg_isready -h postgres -p 5432 -U postgres; do
+          until pg_isready -h postgres -p 5432 -U kozachkov; do
             echo "Waiting for PostgreSQL to be ready..."
             sleep 2
           done
