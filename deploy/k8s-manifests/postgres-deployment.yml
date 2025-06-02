@@ -6,7 +6,7 @@ metadata:
     app: postgres
 data:
   POSTGRES_DB: college-db
-  POSTGRES_USER: postgres
+  POSTGRES_USER: kozachkov
 ---
 apiVersion: v1
 kind: Secret
@@ -99,7 +99,7 @@ spec:
             command:
             - pg_isready
             - -U
-            - postgres
+            - kozachkov
             - -d
             - mobile-db
           initialDelaySeconds: 30
@@ -111,7 +111,7 @@ spec:
             command:
             - pg_isready
             - -U
-            - postgres
+            - kozachkov
             - -d
             - mobile-db
           initialDelaySeconds: 10
