@@ -10,7 +10,7 @@
   
   <groupId>com.mobile</groupId>
   <artifactId>mobile-operator</artifactId>
-  <version>0.3.0-SNAPSHOT</version>
+  <version>0.4.0-SNAPSHOT</version>
   <name>mobile-operator-app</name>
   <packaging>jar</packaging>
   
@@ -28,7 +28,7 @@
     <connection>scm:git:https://github.com/Deja-Vu101/mobile-app.git</connection>
     <developerConnection>scm:git:https://github.com/Deja-Vu101/mobile-app.git</developerConnection>
     <url>https://github.com/Deja-Vu101/mobile-app</url>
-    <tag>v0.2.0</tag>
+    <tag>v0.3.0</tag>
 </scm>
   
   <dependencies>
